@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: curl BaiduNetdisk_7.20.2.2.exe
         shell: cmd
-        run:  cd /d ${{ github.workspace }} && curl https://issuepcdn.baidupcs.com/issue/netdisk/yunguanjia/BaiduNetdisk_7.20.2.2.exe -L --output PortableGit-2.38.1-64-bit.7z.exe && dir && 7z.exe x BaiduNetdisk_7.20.2.2.exe -o"${{ github.workspace }}\baidunetdisk-installation"
+        run:  cd /d ${{ github.workspace }} && curl https://issuepcdn.baidupcs.com/issue/netdisk/yunguanjia/BaiduNetdisk_7.20.2.2.exe -L --output installer.exe && dir && 7z.exe x installer.exe -o"${{ github.workspace }}\baidunetdisk-installation"
 
       - name: Delete $PLUGINSDIR
         run: RD /S /Q $PLUGINSDIR
