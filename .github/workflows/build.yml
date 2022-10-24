@@ -1,0 +1,42 @@
+name: cpp-cmake-mingw-prebuilt-release-actions-workflow
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+      - 'c*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+jobs:
+  build:
+    name: Create Release
+    runs-on: windows-2019
+    env:
+      targetZip: baidunetdisk-portable-${{ github.ref_name }}.zip
+    steps:
+      - name: curl BaiduNetdisk_7.20.2.2.exe
+        shell: cmd
+        run:  cd /d ${{ github.workspace }} && curl https://issuepcdn.baidupcs.com/issue/netdisk/yunguanjia/BaiduNetdisk_7.20.2.2.exe -L --output PortableGit-2.38.1-64-bit.7z.exe && dir && 7z.exe x BaiduNetdisk_7.20.2.2.exe -o"${{ github.workspace }}\baidunetdisk-installation"
+
+      - name: Delete $PLUGINSDIR
+        run: RD /S /Q $PLUGINSDIR
+        shell: cmd
+        working-directory: baidunetdisk-installation
+      
+      - name: Delete $TEMP
+        run: RD /S /Q $TEMP
+        shell: cmd
+        working-directory: baidunetdisk-installation
+      
+      - name: Archive Release
+        uses: thedoctor0/zip-release@master
+        with:
+          type: 'zip'
+          directory: "baidunetdisk-installation"
+          filename: "${{ env.targetZip }}"
+          
+      - name: Release prebuilt
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "baidunetdisk-installation/${{ env.targetZip }}"
+          allowUpdates: true
+          token: ${{ secrets.GITHUB_TOKEN }}
