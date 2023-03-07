@@ -9,13 +9,13 @@ on:
 jobs:
   build:
     name: Create Release
-    runs-on: windows-2019
+    runs-on: windows-latest
     env:
       targetZip: baidunetdisk-portable-${{ github.ref_name }}.zip
     steps:
-      - name: curl BaiduNetdisk_7.20.2.2.exe
+      - name: curl installer
         shell: cmd
-        run:  cd /d ${{ github.workspace }} && curl https://issuepcdn.baidupcs.com/issue/netdisk/yunguanjia/BaiduNetdisk_7.20.2.2.exe -L --output installer.exe && dir && 7z.exe x installer.exe -o"${{ github.workspace }}\baidunetdisk-installation"
+        run:  cd /d ${{ github.workspace }} && curl https://issuepcdn.baidupcs.com/issue/netdisk/yunguanjia/BaiduNetdisk_7.25.0.4.exe -L --output installer.exe && dir && 7z.exe x installer.exe -o"${{ github.workspace }}\baidunetdisk-installation"
 
       - name: Delete $PLUGINSDIR
         run: RD /S /Q $PLUGINSDIR
