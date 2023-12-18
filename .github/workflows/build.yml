@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: curl installer
         shell: cmd
-        run:  curl https://issuepcdn.baidupcs.com/issue/netdisk/yunguanjia/BaiduNetdisk_7.33.0.7.exe -L --output installer.exe && dir && 7z.exe x installer.exe -o"${{ github.workspace }}\baidunetdisk-installation"
+        run:  curl https://issuepcdn.baidupcs.com/issue/netdisk/yunguanjia/BaiduNetdisk_7.36.0.3.exe -L --output installer.exe && dir && 7z.exe x installer.exe -o"${{ github.workspace }}\baidunetdisk-installation"
 
       - name: Delete $PLUGINSDIR
         run: RD /S /Q $PLUGINSDIR
